@@ -136,7 +136,7 @@ Atualmente, o **ARDiscordBypass** está focado e perfeitamente otimizado para **
 
 ## 👤 Créditos
 
-- **Desenvolvimento & Autor**: Criado por mim (Alexsanderalri).
+- **Desenvolvimento & Autor**: Alexsanderalri.
 - **Linguagem**: C++20 / Win32 API.
 
 ---
