@@ -10,6 +10,7 @@
   <img src="https://img.shields.io/badge/Size-~300KB-brightgreen.svg" alt="Size ~300KB">
   <img src="https://img.shields.io/badge/RAM-~2MB-success.svg" alt="RAM ~2MB">
   <img src="https://img.shields.io/badge/TOS-100%25%20Safe-orange.svg" alt="100% TOS Safe">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-ARGLFU%20v2-red.svg" alt="License ARGLFU v2"></a>
 </p>
 
 ---
@@ -134,9 +135,24 @@ Atualmente, o **ARDiscordBypass** está focado e perfeitamente otimizado para **
 
 ---
 
+## 📄 Licença
+
+Este projeto é protegido sob os termos da licença **ARGLFU (ALRI GROUP LICENSE FREE USE) Version 2 – 2026**.
+
+- 🟢 **Uso e Distribuição**: Gratuito para uso pessoal e não comercial em sua forma original.
+- 🔴 **Proibição de Modificação**: Não é permitida a alteração, modificação ou criação de obras derivadas do código sem autorização expressa do ALRI Group.
+- 🔴 **Restrição Comercial**: Proibida qualquer venda, aluguel ou monetização deste software.
+
+Para mais detalhes, consulte o arquivo [LICENSE](LICENSE) ou acesse os links oficiais:
+- 🔗 **Repositório de Licenças**: [https://github.com/alrigroup/licenses](https://github.com/alrigroup/licenses)
+- 📄 **Texto da Licença (RAW)**: [LICENSE-ARGLFU](https://raw.githubusercontent.com/alrigroup/licenses/refs/heads/main/LICENSE-ARGLFU)
+
+---
+
 ## 👤 Créditos
 
 - **Desenvolvimento & Autor**: Alexsanderalri.
+- **Copyright**: Copyright © 2020-2026 **ALRI Group**. Todos os direitos reservados.
 - **Linguagem**: C++20 / Win32 API.
 
 ---
