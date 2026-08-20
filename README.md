@@ -1,29 +1,17 @@
-<div align="center">
-  <img src="https://i.ibb.co/Fk4sSC7X/ALRI-SF-W.png" width="220" alt="ALRI Group Logo">
+# 🚀 ARDiscordBypass
 
-  # ALRI GROUP
-  **"From a vision in 2020 to a multi-disciplinary tech reality."**
-
-  [![Founder](https://img.shields.io/badge/Founder-@alexsanderalri-black?style=flat-square&logo=github)](https://github.com/alexsanderalri)
-  [![Status](https://img.shields.io/badge/Status-Developing-green?style=flat-square)](#)
-
-  ---
-
-  # 🚀 ARDiscordBypass
-
+<p align="center">
   <b>Solução nativa, ultraleve e segura para liberação de Transmissão de Tela (Live / Screen Share) no Discord.</b>
+</p>
 
-  <br><br>
-
-  <p align="center">
-    <img src="https://img.shields.io/badge/Language-C%2B%2B20-blue.svg" alt="C++20">
-    <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Win32-0078D6.svg" alt="Windows Win32">
-    <img src="https://img.shields.io/badge/Size-~300KB-brightgreen.svg" alt="Size ~300KB">
-    <img src="https://img.shields.io/badge/RAM-~2MB-success.svg" alt="RAM ~2MB">
-    <img src="https://img.shields.io/badge/TOS-100%25%20Safe-orange.svg" alt="100% TOS Safe">
-    <a href="LICENSE"><img src="https://img.shields.io/badge/License-ARGLFU%20v2-red.svg" alt="License ARGLFU v2"></a>
-  </p>
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/Language-C%2B%2B20-blue.svg" alt="C++20">
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Win32-0078D6.svg" alt="Windows Win32">
+  <img src="https://img.shields.io/badge/Size-~300KB-brightgreen.svg" alt="Size ~300KB">
+  <img src="https://img.shields.io/badge/RAM-~2MB-success.svg" alt="RAM ~2MB">
+  <img src="https://img.shields.io/badge/TOS-100%25%20Safe-orange.svg" alt="100% TOS Safe">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-ARGLFU%20v2-red.svg" alt="License ARGLFU v2"></a>
+</p>
 
 ---
 
