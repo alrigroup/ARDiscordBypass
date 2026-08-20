@@ -18,7 +18,7 @@
 
 Não quer compilar? O executável já está pronto e compilado para uso imediato!
 
-👉 **[Baixe a versão mais recente na aba Releases](../../releases)**
+👉 **[Baixe a versão mais recente na aba Releases](https://github.com/alrigroup/ARDicordBypass/releases)**
 
 ---
 
@@ -72,7 +72,7 @@ O **ARDiscordBypass** resolve esse problema de maneira simples, segura e extrema
 
 ## 📖 Como Usar (Sem precisar compilar)
 
-1. Vá até a aba **[Releases](../../releases)** do repositório e baixe o arquivo `ARDiscordBypass.exe`.
+1. Vá até a aba **[Releases](https://github.com/alrigroup/ARDicordBypass/releases)** do repositório e baixe o arquivo `ARDiscordBypass.exe`.
 2. **Execute** o `ARDiscordBypass.exe`.
 3. O programa vai detectar a instalação do Discord, fechar instâncias abertas e iniciá-lo com o bypass ativado.
 4. **Aproveite!** Sua transmissão de tela no Discord estará liberada sem lag, sem queda de FPS e com total segurança.
