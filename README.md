@@ -123,6 +123,17 @@ cmake --build . --config Release
 
 ---
 
+## 🗺️ Roadmap & Planos Futuros
+
+Atualmente, o **ARDiscordBypass** está focado e perfeitamente otimizado para **Windows**. No entanto, temos em mente expandir o suporte nativo no futuro para outras plataformas:
+
+- [x] 🟢 **Windows** (Suporte nativo Win32/C++)
+- [ ] 🟡 **Linux** *(Em desenvolvimento/breve)*
+- [ ] 🟡 **macOS** *(Em breve)*
+- [ ] 🟡 **Android & iOS** *(Planejado para futuras versões)*
+
+---
+
 ## 👤 Créditos
 
 - **Desenvolvimento & Autor**: Criado por mim (Alexsanderalri).
