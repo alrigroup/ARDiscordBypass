@@ -6,7 +6,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Language-C%2B%2B20-blue.svg" alt="C++20">
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Win32-0078D6.svg" alt="Windows Win32">
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-0078D6.svg" alt="Windows Linux">
   <img src="https://img.shields.io/badge/Size-~300KB-brightgreen.svg" alt="Size ~300KB">
   <img src="https://img.shields.io/badge/RAM-~2MB-success.svg" alt="RAM ~2MB">
   <img src="https://img.shields.io/badge/TOS-100%25%20Safe-orange.svg" alt="100% TOS Safe">
@@ -84,15 +84,27 @@ O **ARDiscordBypass** resolve esse problema de maneira simples, segura e extrema
 
 ## 🛠️ Como Compilar (Opcional)
 
-Se você preferir compilar o código-fonte por conta própria, o projeto é escrito em C++20 nativo para Windows sem dependências externas de terceiros.
+Se você preferir compilar o código-fonte por conta própria, o projeto é escrito em C++20 nativo para Windows e Linux, sem dependências externas de terceiros.
 
 ### Requisitos:
 - Compilador C++20 (GCC/MinGW, MSVC ou Clang)
-- Windows SDK (`ws2_32.lib`, `winhttp.lib`, `shell32.lib`)
+- CMake 3.16 ou superior
 
 ---
 
-### Opção 1: Usando o Script Automatizado (`build.bat`)
+### Opção 1: Linux via CMake
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --parallel
+./build/ARDiscordBypass_cpp
+```
+
+No Linux, o Discord é procurado em `$XDG_CONFIG_HOME/discord` ou `~/.config/discord`. Para informar outro caminho:
+```bash
+./build/ARDiscordBypass_cpp /caminho/para/Discord
+```
+
+### Opção 2: Windows usando o Script Automatizado (`build.bat`)
 Basta dar dois cliques no arquivo [`build.bat`](file:///c:/Users/WMAROS11U/Documents/ALRIDCBYPASS/build.bat) ou executá-lo pelo Terminal/CMD:
 ```cmd
 build.bat
@@ -100,21 +112,21 @@ build.bat
 
 ---
 
-### Opção 2: Compilação Manual via GCC / MinGW
+### Opção 3: Compilação Manual via GCC / MinGW
 ```cmd
 g++ -O2 -std=c++20 main.cpp -lws2_32 -lwinhttp -lshell32 -o ARDiscordBypass.exe
 ```
 
 ---
 
-### Opção 3: Compilação Manual via MSVC (Visual Studio Developer Command Prompt)
+### Opção 4: Compilação Manual via MSVC (Visual Studio Developer Command Prompt)
 ```cmd
 cl /O2 /std:c++20 /EHsc main.cpp ws2_32.lib winhttp.lib shell32.lib /Fe:ARDiscordBypass.exe
 ```
 
 ---
 
-### Opção 4: Compilação via CMake
+### Opção 5: Compilação via CMake
 ```cmd
 mkdir build
 cd build
@@ -126,10 +138,10 @@ cmake --build . --config Release
 
 ## 🗺️ Roadmap & Planos Futuros
 
-Atualmente, o **ARDiscordBypass** está focado e perfeitamente otimizado para **Windows**. No entanto, temos em mente expandir o suporte nativo no futuro para outras plataformas:
+O **ARDiscordBypass** possui suporte nativo para **Windows** e **Linux**. O suporte para outras plataformas permanece planejado:
 
 - [x] 🟢 **Windows** (Suporte nativo Win32/C++)
-- [ ] 🟡 **Linux** *(Em desenvolvimento/breve)*
+- [x] 🟢 **Linux** (Suporte nativo POSIX/C++)
 - [ ] 🟡 **macOS** *(Em breve)*
 - [ ] 🟡 **Android & iOS** *(Planejado para futuras versões)*
 
@@ -153,7 +165,7 @@ Para mais detalhes, consulte o arquivo [LICENSE](LICENSE) ou acesse os links ofi
 
 - **Desenvolvimento & Autor**: Alexsanderalri.
 - **Copyright**: Copyright © 2020-2026 **ALRI Group**. Todos os direitos reservados.
-- **Linguagem**: C++20 / Win32 API.
+- **Linguagem**: C++20 / Win32 API / POSIX.
 
 ---
 

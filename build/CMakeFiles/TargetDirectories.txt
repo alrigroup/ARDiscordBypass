@@ -1,0 +1,3 @@
+/home/alhain/Dev/ARDiscordBypass/build/CMakeFiles/ARDiscordBypass_cpp.dir
+/home/alhain/Dev/ARDiscordBypass/build/CMakeFiles/edit_cache.dir
+/home/alhain/Dev/ARDiscordBypass/build/CMakeFiles/rebuild_cache.dir

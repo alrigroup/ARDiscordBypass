@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG CMakeFiles/ARDiscordBypass_cpp.dir/main.cpp.o -o ARDiscordBypass_cpp 

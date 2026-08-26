@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <winsock2.h>
@@ -5,6 +6,14 @@
 #include <winhttp.h>
 #include <tlhelp32.h>
 #include <shellapi.h>
+#else
+#include <cerrno>
+#include <csignal>
+#include <cstdlib>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#endif
 
 #include <chrono>
 #include <iostream>
@@ -13,9 +22,11 @@
 #include <thread>
 #include <vector>
 #include <filesystem>
+#ifdef _WIN32
 #pragma comment(lib, "shell32.lib")
 #pragma comment(lib, "ws2_32.lib")
 #pragma comment(lib, "winhttp.lib")
+#endif
 
 namespace fs = std::filesystem;
 
@@ -42,6 +53,7 @@ void printBanner() {
   std::cout << "=========================================================================================" << std::endl << std::endl;
 }
 
+#ifdef _WIN32
 bool isDiscordRunning(const std::wstring &targetExe = L"Discord.exe") {
   HANDLE hSnap = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
   if (hSnap == INVALID_HANDLE_VALUE)
@@ -68,7 +80,19 @@ void killDiscord(const std::wstring &targetExe = L"Discord.exe") {
   _wsystem(cmd.c_str());
   std::this_thread::sleep_for(std::chrono::seconds(1));
 }
+#else
+bool isDiscordRunning() {
+  return std::system("pgrep -x Discord >/dev/null 2>&1") == 0;
+}
 
+void killDiscord() {
+  std::system("pkill -TERM -x Discord >/dev/null 2>&1");
+  std::this_thread::sleep_for(std::chrono::seconds(1));
+  std::system("pkill -KILL -x Discord >/dev/null 2>&1");
+}
+#endif
+
+#ifdef _WIN32
 std::wstring findDiscordExeIn(const std::wstring &basePath) {
   std::wstring discordRoot = basePath + L"\\Discord";
   if (!fs::exists(discordRoot))
@@ -151,26 +175,85 @@ bool launchDiscord(const std::wstring &exePath,
   }
   return false;
 }
+#else
+std::string findDiscordExeIn(const fs::path &basePath) {
+  const fs::path discordRoot = basePath / "discord";
+  if (!fs::exists(discordRoot))
+    return "";
 
-int main() {
+  fs::path latestPath;
+  std::string latestVersion;
+  for (const auto &entry : fs::directory_iterator(discordRoot)) {
+    if (!entry.is_directory())
+      continue;
+    const std::string folder = entry.path().filename().string();
+    if (folder.rfind("app-", 0) != 0)
+      continue;
+    const fs::path exePath = entry.path() / "Discord";
+    if (fs::is_regular_file(exePath) &&
+        (latestVersion.empty() || folder > latestVersion)) {
+      latestVersion = folder;
+      latestPath = exePath;
+    }
+  }
+  return latestPath.empty() ? "" : latestPath.string();
+}
+
+std::string locateDiscordExe() {
+  const char *configHome = std::getenv("XDG_CONFIG_HOME");
+  const fs::path configPath = configHome && *configHome
+                                  ? fs::path(configHome)
+                                  : fs::path(std::getenv("HOME")) / ".config";
+  return findDiscordExeIn(configPath);
+}
+
+bool launchDiscord(const std::string &exePath, const std::string &proxyEndpoint) {
+  const pid_t child = fork();
+  if (child < 0)
+    return false;
+  if (child == 0) {
+    setsid();
+    const std::string bypassList =
+        "cdn.discordapp.com;*.discordapp.net;*.discord.media;<local>";
+    execl(exePath.c_str(), exePath.c_str(),
+          ("--proxy-server=" + proxyEndpoint).c_str(),
+          ("--proxy-bypass-list=" + bypassList).c_str(), nullptr);
+    _exit(127);
+  }
+  return true;
+}
+#endif
+
+int main(int argc, char *argv[]) {
+#ifdef _WIN32
   SetConsoleOutputCP(CP_UTF8);
+#endif
 
   printBanner();
 
+#ifdef _WIN32
   WSADATA wsaData;
   WSAStartup(MAKEWORD(2, 2), &wsaData);
+#endif
 
   logf("VERIFICANDO INSTALAÇÃO DO DISCORD...");
+#ifdef _WIN32
   std::wstring discordExe = locateDiscordExe();
-  if (discordExe.empty() && __argc > 1) {
-    int wlen = MultiByteToWideChar(CP_UTF8, 0, __argv[1], -1, nullptr, 0);
+  if (discordExe.empty() && argc > 1) {
+    int wlen = MultiByteToWideChar(CP_UTF8, 0, argv[1], -1, nullptr, 0);
     if (wlen > 0) {
       std::wstring arg(wlen, 0);
-      MultiByteToWideChar(CP_UTF8, 0, __argv[1], -1, &arg[0], wlen);
+      MultiByteToWideChar(CP_UTF8, 0, argv[1], -1, &arg[0], wlen);
       arg.resize(wlen - 1);
       discordExe = arg;
     }
   }
+#else
+  std::string discordExe = locateDiscordExe();
+  if (discordExe.empty() && argc > 1)
+    discordExe = argv[1];
+#endif
+#ifdef _WIN32
   if (discordExe.empty()) {
     wchar_t programFiles[MAX_PATH];
     if (GetEnvironmentVariableW(L"ProgramFiles", programFiles, MAX_PATH) != 0) {
@@ -203,18 +286,17 @@ int main() {
       }
     }
   }
-  if (discordExe.empty() && __argc > 1) {
-    int wlen = MultiByteToWideChar(CP_UTF8, 0, __argv[1], -1, nullptr, 0);
-    if (wlen > 0) {
-      std::wstring arg(wlen, 0);
-      MultiByteToWideChar(CP_UTF8, 0, __argv[1], -1, &arg[0], wlen);
-      arg.resize(wlen - 1);
-      discordExe = arg;
-    }
-  }
+#else
   if (discordExe.empty()) {
     logf("ERRO: Não encontrei a instalação do Discord no seu sistema.");
+    return 1;
+  }
+#endif
+  if (discordExe.empty()) {
+    logf("ERRO: Não encontrei a instalação do Discord no seu sistema.");
+#ifdef _WIN32
     WSACleanup();
+#endif
     return 1;
   }
   logf("EXECUTÁVEL ENCONTRADO!");
@@ -241,16 +323,19 @@ int main() {
     logf("ERRO ao iniciar o executável do Discord.");
   }
 
+#ifdef _WIN32
   WSACleanup();
+#endif
 
   std::cout << std::endl;
   std::cout << "Pressione ENTER para fechar...";
   std::cout.flush();
 
+#ifdef _WIN32
   HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
-  if (hIn != INVALID_HANDLE_VALUE) {
+  if (hIn != INVALID_HANDLE_VALUE)
     FlushConsoleInputBuffer(hIn);
-  }
+#endif
   std::string dummy;
   std::getline(std::cin, dummy);
 
