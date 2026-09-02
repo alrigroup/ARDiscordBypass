@@ -151,9 +151,10 @@ Para mais detalhes, consulte o arquivo [LICENSE](LICENSE) ou acesse os links ofi
 
 ## 👤 Créditos
 
-- **Desenvolvimento & Autor**: Alexsanderalri.
+- **Autor & Criador**: [AlexsanderALRI](https://github.com/AlexsanderALRI) (ALRI Group).
+- **Colaboradores**: [Veja todos os contribuidores no GitHub](https://github.com/alrigroup/ARDiscordBypass/graphs/contributors)
 - **Copyright**: Copyright © 2020-2026 **ALRI Group**. Todos os direitos reservados.
-- **Linguagem**: C++20 / Win32 API.
+- **Linguagem**: C++20 / Win32 API / POSIX.
 
 ---
 
