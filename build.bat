@@ -1,32 +1,39 @@
 @echo off
 
-title Compilando ARDiscordBypass C++
+title Compilando ARDiscordBypass v2.0
 
 echo.
 echo =========================================================
-echo       Compilando ARDiscordBypass (Versao C++)
+echo       Compilando ARDiscordBypass v2.0 (C++)
 echo =========================================================
 echo.
 
 if exist "ARDiscordBypass.exe" del /f "ARDiscordBypass.exe"
 
-
-    echo Compilando com MinGW g++...
-    "C:\ProgramData\mingw64\mingw64\bin\g++.exe" -O2 -std=c++20 main.cpp -lws2_32 -lwinhttp -o ARDiscordBypass.exe
-    goto :done
+where g++ >nul 2>&1
+if %errorlevel% neq 0 (
+    echo ERRO: g++ nao encontrado no PATH!
+    echo Instale o MinGW: https://www.mingw-w64.org/
+    pause
+    exit /b 1
 )
 
-echo ERRO: Nao foi encontrado nenhum compilador C++ (g++) no seu PATH.
-pause
-exit /b 1
+echo Compilando com linkagem estatica...
+g++ -O2 -std=c++20 -static main.cpp -lws2_32 -lwinhttp -lshell32 -o ARDiscordBypass.exe
 
-:done
+if %errorlevel% neq 0 (
+    echo.
+    echo ERRO: Falha na compilacao!
+    pause
+    exit /b 1
+)
+
 if exist "ARDiscordBypass.exe" (
     echo.
     echo =========================================================
-    echo Compilacao concluida com sucesso!
-    echo Arquivo criado: ARDiscordBypass.exe
+    echo  Compilacao concluida com sucesso!
+    echo  Arquivo: ARDiscordBypass.exe
+    echo  (Linkagem estatica - sem dependencia de DLLs)
     echo =========================================================
-    echo .
 )
 pause
