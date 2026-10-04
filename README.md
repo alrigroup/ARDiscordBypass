@@ -8,11 +8,19 @@
   <img src="https://img.shields.io/badge/Language-C%2B%2B20-blue.svg" alt="C++20">
   <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-0078D6.svg" alt="Windows Linux">
   <img src="https://img.shields.io/badge/Version-2.0.0-brightgreen.svg" alt="Version 2.0">
+  <img src="https://img.shields.io/badge/Status-Correção%20em%20Breve-yellow.svg" alt="Status">
   <img src="https://img.shields.io/badge/Size-~300KB-brightgreen.svg" alt="Size ~300KB">
   <img src="https://img.shields.io/badge/RAM-~2MB-success.svg" alt="RAM ~2MB">
   <img src="https://img.shields.io/badge/TOS-100%25%20Safe-orange.svg" alt="100% TOS Safe">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-ARGLFU%20v2-red.svg" alt="License ARGLFU v2"></a>
 </p>
+
+---
+
+> [!WARNING]
+> ### ⚠️ Status Atual: Correção Temporária do Discord
+> Recentemente o Discord implementou uma atualização que neutralizou temporariamente este método de bypass.
+> **Estamos cientes e já trabalhando nisso:** uma nova versão corrigida será lançada em breve! Acompanhe as atualizações na aba de [Releases](https://github.com/alrigroup/ARDiscordBypass/releases).
 
 ---
 
@@ -24,15 +32,15 @@ Não quer compilar? O executável já está pronto e compilado para uso imediato
 
 ---
 
-## ✅ Compatibilidade (v2.0)
+## ⚠️ Compatibilidade (v2.0)
 
 | Sistema Operacional | Método de Instalação do Discord | Status |
 | :--- | :---: | :---: |
-| **Windows 11** | Instalador oficial (.exe) | ✅ Testado e Funcional |
-| **Windows 10** | Instalador oficial (.exe) | ✅ Testado e Funcional |
-| **Linux** | Flatpak | ✅ Testado e Funcional |
-| **Linux** | Snap / Nativo (.deb, .tar.gz, AUR, etc.) | ⚙️ Não testado, mas implementado |
-| **Linux** | Qualquer outro método | ⚙️ Não testado, mas implementado |
+| **Windows 11** | Instalador oficial (.exe) | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
+| **Windows 10** | Instalador oficial (.exe) | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
+| **Linux** | Flatpak | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
+| **Linux** | Snap / Nativo (.deb, .tar.gz, AUR, etc.) | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
+| **Linux** | Qualquer outro método | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
 
 > **Não encontrou seu sistema na lista?** O programa foi feito para funcionar em qualquer distro Linux e qualquer método de instalação do Discord. Se encontrar algum problema, por favor [abra uma Issue](https://github.com/alrigroup/ARDiscordBypass/issues)!
 
@@ -180,6 +188,7 @@ g++ -O2 -std=c++20 -static main.cpp -lws2_32 -lwinhttp -lshell32 -o ARDiscordByp
 
 - [x] 🟢 **Windows 10/11** (Suporte nativo Win32/C++)
 - [x] 🟢 **Linux** (Suporte Flatpak, Snap e Nativo)
+- [ ] 🟡 **Nova versão com correção para atualização do Discord** *(Em andamento)*
 - [ ] 🟡 **Android** *(Em breve - em desenvolvimento)*
 - [ ] 🔵 **macOS** *(Planos futuros)*
 - [ ] 🔵 **iOS** *(Planos futuros)*
