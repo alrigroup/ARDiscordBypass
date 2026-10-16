@@ -115,7 +115,7 @@ class DiscordVpnService : GoBackend.VpnService() {
         )
 
         return NotificationCompat.Builder(this, CHANNEL_ID)
-            .setContentTitle("ARDiscordBypass v3.0 (ALRI GROUP)")
+            .setContentTitle("ARDiscordBypass v3.5.0 (ALRI GROUP)")
             .setContentText(text)
             .setSmallIcon(android.R.drawable.ic_lock_lock)
             .setContentIntent(pOpen)

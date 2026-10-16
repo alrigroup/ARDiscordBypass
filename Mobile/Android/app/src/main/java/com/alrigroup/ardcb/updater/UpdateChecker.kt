@@ -11,7 +11,7 @@ import kotlin.concurrent.thread
 object UpdateChecker {
     private const val GITHUB_REPO = "alrigroup/ARDiscordBypass"
     private const val API_URL = "https://api.github.com/repos/$GITHUB_REPO/releases/latest"
-    const val CURRENT_VERSION = "3.0.0"
+    const val CURRENT_VERSION = "3.5.0"
 
     data class UpdateInfo(
         val hasUpdate: Boolean,

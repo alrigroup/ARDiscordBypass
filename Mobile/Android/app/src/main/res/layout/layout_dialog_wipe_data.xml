@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_terminal_box"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Modal Drag Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/terminal_card_border" />
+
+    <!-- Header com Logo / Ícone de Alerta -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="Warning Icon"
+            android:src="@drawable/alri_logo" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="LIMPEZA TOTAL DE DADOS"
+                android:textColor="@color/alri_red"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="Restaurar o aplicativo ao estado de fábrica"
+                android:textColor="@color/terminal_text_secondary"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnCloseWipeSheet"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/terminal_text_muted" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="12dp"
+        android:background="@color/terminal_card_border" />
+
+    <!-- Card de Aviso Informativo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_tab_inactive"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="Esta operação é permanente e realizará:"
+            android:textColor="@color/terminal_text_primary"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="3dp"
+            android:text="• Desconexão imediata de qualquer túnel ativo\n• Exclusão permanente do arquivo ardc_vpn.conf\n• Exclusão da sessão de login salva (.protonvpn-session.json)\n• Redefinição dos campos de usuário e senha"
+            android:textColor="@color/terminal_text_secondary"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- Botões de Ação -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfirmWipeData"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="monospace"
+        android:text="[ SIM, APAGAR TODOS OS DADOS ]"
+        android:textColor="@color/terminal_btn_text"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/alri_red"
+        app:cornerRadius="8dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCancelWipeData"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="monospace"
+        android:text="CANCELAR"
+        android:textColor="@color/terminal_text_primary"
+        android:textSize="11sp"
+        app:cornerRadius="8dp"
+        app:strokeColor="@color/terminal_card_border" />
+
+</LinearLayout>

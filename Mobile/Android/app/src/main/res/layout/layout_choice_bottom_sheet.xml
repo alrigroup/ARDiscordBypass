@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_terminal_box"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Modal Drag Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/terminal_card_border" />
+
+    <!-- Modal Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="ALRI Logo"
+            android:src="@drawable/alri_logo" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="CONFIGURAÇÃO NECESSÁRIA"
+                android:textColor="@color/alri_red"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="Selecione o método de conexão WireGuard"
+                android:textColor="@color/terminal_text_secondary"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/btnCloseChoiceSheet"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/terminal_text_muted" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/terminal_card_border" />
+
+    <!-- OPÇÃO 1: PROTONVPN GRATUITA (RECOMENDADO) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_tab_inactive"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:text="CONTA PROTONVPN GRATUITA"
+                android:textColor="@color/terminal_text_primary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill_status"
+                android:fontFamily="monospace"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:text="RECOMENDADO"
+                android:textColor="@color/terminal_green"
+                android:textSize="9sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="monospace"
+            android:text="Informe seu usuário e senha Proton. O aplicativo autentica via SRP e configura o WireGuard sozinho:"
+            android:textColor="@color/terminal_text_muted"
+            android:textSize="10sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:boxBackgroundColor="@color/terminal_surface"
+            app:boxStrokeColor="@color/alri_red"
+            app:hintTextColor="@color/terminal_text_secondary"
+            android:textColorHint="@color/terminal_text_muted">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etChoiceProtonUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:hint="Usuário ou Email Proton"
+                android:textColor="@color/terminal_text_primary"
+                android:textSize="12sp"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:boxBackgroundColor="@color/terminal_surface"
+            app:boxStrokeColor="@color/alri_red"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/terminal_text_muted"
+            app:hintTextColor="@color/terminal_text_secondary"
+            android:textColorHint="@color/terminal_text_muted">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etChoiceProtonPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:hint="Senha da sua conta Proton"
+                android:textColor="@color/terminal_text_primary"
+                android:textSize="12sp"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChoiceProtonLogin"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:text="1. ENTRAR &amp; ATIVAR BYPASS"
+            android:textColor="@color/terminal_btn_text"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/alri_red"
+            app:cornerRadius="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChoiceProtonWeb"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="monospace"
+            android:text="Não tem conta? Entrar / Criar no site (Web)"
+            android:textColor="@color/terminal_text_muted"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <!-- OPÇÃO 2: IMPORTAR CONFIG CUSTOMIZADA -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_tab_inactive"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="PERFIL CUSTOMIZADO (.CONF)"
+            android:textColor="@color/terminal_text_primary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="monospace"
+            android:text="Utilize seu arquivo próprio de VPS WireGuard, Cloudflare WARP ou Mullvad."
+            android:textColor="@color/terminal_text_muted"
+            android:textSize="10sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChoiceImportCustom"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="monospace"
+            android:text="2. IMPORTAR PERFIL PERSONALIZADO"
+            android:textColor="@color/terminal_text_primary"
+            android:textSize="11sp"
+            app:cornerRadius="8dp"
+            app:strokeColor="@color/terminal_card_border" />
+    </LinearLayout>
+
+</LinearLayout>

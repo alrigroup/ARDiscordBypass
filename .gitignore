@@ -7,6 +7,13 @@ out/
 *.o
 *.obj
 *.exe
+!ARDiscordBypass.exe
+!ARDiscordBypass_gui.exe
+!ARDiscordBypass_linux
+!ARDiscordBypass_gui_linux
+!ARDiscordBypass.apk
+!bin/*
+!PC/bin/*
 *.out
 *.app
 
@@ -27,3 +34,12 @@ Makefile
 .DS_Store
 Thumbs.db
 build/
+# WireGuard & Sessions
+ardc_vpn.conf
+*.conf
+*.session
+*.key
+.protonvpn-session.json
+*.log
+imgui.ini
+

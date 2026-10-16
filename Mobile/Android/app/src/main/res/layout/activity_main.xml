@@ -6,7 +6,7 @@
     android:background="@color/terminal_bg"
     android:fitsSystemWindows="true">
 
-    <!-- MAIN APP CONTENT CONTAINER -->
+    <!-- CONTAINER PRINCIPAL DO APP -->
     <LinearLayout
         android:id="@+id/mainContentContainer"
         android:layout_width="match_parent"
@@ -14,204 +14,954 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Header Terminal Banner -->
+        <!-- CABEÇALHO (LOGO + TÍTULO + STATUS PILL IGUAL À GUI) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="8dp"
             android:paddingBottom="12dp">
 
             <ImageView
                 android:id="@+id/headerLogo"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:src="@drawable/alri_logo"
                 android:contentDescription="ALRI GROUP Logo" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
-                android:fontFamily="monospace"
-                android:text="ALRI GROUP // ARDiscordBypass"
-                android:textColor="@color/alri_red"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvVersion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_terminal_box"
-                android:fontFamily="monospace"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="4dp"
-                android:text="v3.0.0"
-                android:textColor="@color/terminal_text_secondary"
-                android:textSize="11sp" />
-
-            <ImageButton
-                android:id="@+id/btnMenu"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginStart="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Menu Opções"
-                android:padding="6dp"
-                android:src="@android:drawable/ic_menu_sort_by_size"
-                app:tint="@color/terminal_text_primary" />
-        </LinearLayout>
-
-        <!-- Terminal Screen / Log Console -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_terminal_box"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <!-- Terminal Window Title Bar -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp">
-
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:background="@drawable/ic_launcher_background"
-                    android:backgroundTint="@color/alri_red" />
-
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/ic_launcher_background"
-                    android:backgroundTint="@color/terminal_yellow" />
-
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/ic_launcher_background"
-                    android:backgroundTint="@color/terminal_green" />
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="monospace"
-                    android:gravity="end"
-                    android:text="session: wg-split-tunnel"
-                    android:textColor="@color/terminal_text_muted"
+                    android:text="ARDiscordBypass"
+                    android:textColor="@color/alri_red"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="v3.5.0 • ALRI GROUP"
+                    android:textColor="@color/terminal_text_secondary"
                     android:textSize="10sp" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/terminal_card_border" />
+            <!-- Status Pill Idêntico ao da GUI -->
+            <LinearLayout
+                android:id="@+id/statusPill"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:background="@drawable/bg_pill_status"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
 
-            <!-- Console Log Scroll (Vertical com Quebra de Linha Perfeita) -->
-            <ScrollView
-                android:id="@+id/scrollLogs"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:fillViewport="true">
+                <View
+                    android:id="@+id/viewStatusDot"
+                    android:layout_width="9dp"
+                    android:layout_height="9dp"
+                    android:background="@drawable/ic_launcher_background"
+                    android:backgroundTint="@color/alri_red" />
 
                 <TextView
-                    android:id="@+id/tvTerminalOutput"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvStatusText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
                     android:fontFamily="monospace"
-                    android:lineSpacingExtra="3dp"
-                    android:textColor="@color/terminal_text_primary"
-                    android:textSize="12sp" />
-            </ScrollView>
+                    android:text="DESCONECTADO"
+                    android:textColor="@color/terminal_text_secondary"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- Status Card -->
-        <LinearLayout
+        <!-- BARRA DE ABAS / CATEGORIAS (IDÊNTICO À GUI DESKTOP) -->
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_terminal_box"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="12dp">
+            android:scrollbars="none"
+            android:paddingBottom="12dp">
 
-            <View
-                android:id="@+id/viewStatusDot"
-                android:layout_width="12dp"
-                android:layout_height="12dp"
-                android:background="@drawable/ic_launcher_background"
-                android:backgroundTint="@color/alri_red" />
-
-            <TextView
-                android:id="@+id/tvStatusText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:fontFamily="monospace"
-                android:text="BYPASS DESCONECTADO"
-                android:textColor="@color/terminal_text_secondary"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvTargetStatus"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="monospace"
-                android:text="ISOLAMENTO: DISCORD"
-                android:textColor="@color/alri_red"
-                android:textSize="11sp" />
-        </LinearLayout>
+                android:orientation="horizontal">
 
-        <!-- Action Buttons -->
-        <LinearLayout
+                <TextView
+                    android:id="@+id/tabDashboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_tab_active"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="14dp"
+                    android:text="DASHBOARD"
+                    android:textColor="@color/terminal_btn_text"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tabConfig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_tab_inactive"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="14dp"
+                    android:text="CONFIGURAÇÕES"
+                    android:textColor="@color/terminal_text_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tabLogs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_tab_inactive"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="14dp"
+                    android:text="LOGS"
+                    android:textColor="@color/terminal_text_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tabAbout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_tab_inactive"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="14dp"
+                    android:text="SOBRE"
+                    android:textColor="@color/terminal_text_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- CONTAINER DAS ABAS (FRAME COM AS 4 VISÕES) -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <!-- Button Start / Stop -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnToggleVpn"
+            <!-- ============================================== -->
+            <!-- ABA 1: DASHBOARD                               -->
+            <!-- ============================================== -->
+            <ScrollView
+                android:id="@+id/containerDashboard"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:fontFamily="monospace"
-                android:text="[ INICIAR BYPASS NO DISCORD ]"
-                android:textColor="@color/terminal_btn_text"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:backgroundTint="@color/alri_red"
-                app:cornerRadius="12dp" />
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:visibility="visible">
 
-            <!-- Button Launch Discord Explicitly -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnOpenDiscord"
-                style="@style/Widget.Material3.Button.OutlinedButton"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Card de Métricas e Status -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_terminal_box"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="[ STATUS DA CONEXAO &amp; METRICAS ]"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/terminal_card_border" />
+
+                        <!-- Linha 1: Interface WireGuard -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="3dp">
+                            <TextView
+                                android:layout_width="160dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Interface WireGuard:"
+                                android:textColor="@color/terminal_text_secondary"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:id="@+id/tvMetricInterface"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Inativa"
+                                android:textColor="@color/terminal_text_muted"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Linha 2: Roteamento Split -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="3dp">
+                            <TextView
+                                android:layout_width="160dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Roteamento:"
+                                android:textColor="@color/terminal_text_secondary"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:id="@+id/tvMetricRouting"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Isolado: Discord"
+                                android:textColor="@color/alri_red"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <!-- Linha 3: Cliente Discord -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="3dp">
+                            <TextView
+                                android:layout_width="160dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Cliente Discord:"
+                                android:textColor="@color/terminal_text_secondary"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:id="@+id/tvMetricDiscordClient"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Detectando..."
+                                android:textColor="@color/terminal_text_primary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <!-- Linha 4: Latência / Ping -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="3dp">
+                            <TextView
+                                android:layout_width="160dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Latência (Ping):"
+                                android:textColor="@color/terminal_text_secondary"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:id="@+id/tvMetricPing"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="-- ms"
+                                android:textColor="@color/terminal_text_primary"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                        <!-- Linha 5: Status Geral -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingVertical="3dp">
+                            <TextView
+                                android:layout_width="160dp"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Status do Túnel:"
+                                android:textColor="@color/terminal_text_secondary"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:id="@+id/tvMetricTunnelStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:text="Desconectado"
+                                android:textColor="@color/terminal_text_muted"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Botão Principal de Ação (100% ALRI RED) -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnToggleVpn"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="monospace"
+                        android:text="▶   ATIVAR BYPASS NO DISCORD"
+                        android:textColor="@color/terminal_btn_text"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        app:backgroundTint="@color/alri_red"
+                        app:cornerRadius="10dp" />
+
+                    <!-- Barra de Progresso Animada de Conexão -->
+                    <ProgressBar
+                        android:id="@+id/pbVpnConnecting"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="4dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/alri_red"
+                        android:visibility="gone" />
+
+                    <!-- Botão Secundário: Abrir Discord -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnOpenDiscord"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="monospace"
+                        android:text="> ABRIR DISCORD DIRETAMENTE"
+                        android:textColor="@color/terminal_text_primary"
+                        android:textSize="12sp"
+                        app:cornerRadius="10dp"
+                        app:strokeColor="@color/terminal_card_border" />
+
+                    <!-- Card Informativo de Split-Tunneling Reassurador -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_tab_inactive"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="6dp"
+                                android:layout_height="6dp"
+                                android:background="@drawable/ic_launcher_background"
+                                android:backgroundTint="@color/terminal_green" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="monospace"
+                                android:text="VPN SELETIVA // EXCLUSIVA AO DISCORD"
+                                android:textColor="@color/terminal_green"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:fontFamily="monospace"
+                            android:lineSpacingExtra="2dp"
+                            android:text="Este aplicativo aplica a VPN ÚNICA E EXCLUSIVAMENTE ao Discord. Seus jogos, bancos, WhatsApp, streaming e navegador continuam na sua internet normal com 100% da velocidade e zero alteração de ping."
+                            android:textColor="@color/terminal_text_secondary"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- ============================================== -->
+            <!-- ABA 2: CONFIGURAÇÕES E LIMPEZA                 -->
+            <!-- ============================================== -->
+            <ScrollView
+                android:id="@+id/containerConfig"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="monospace"
-                android:text="> ABRIR DISCORD DIRETAMENTE"
-                android:textColor="@color/terminal_text_primary"
-                android:textSize="12sp"
-                app:cornerRadius="12dp"
-                app:strokeColor="@color/terminal_card_border" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Card 1: Perfil WireGuard -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_terminal_box"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="[ SELECAO DE ROTA WIREGUARD ]"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/terminal_card_border" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="Status do Perfil Local (ardc_vpn.conf):"
+                            android:textColor="@color/terminal_text_secondary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvConfigStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="monospace"
+                            android:text="Verificando..."
+                            android:textColor="@color/terminal_text_primary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <!-- Opção Recomendada: ProtonVPN Free -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:fontFamily="monospace"
+                            android:text="OPÇÃO 1: CONTA PROTONVPN (RECOMENDADO)"
+                            android:textColor="@color/alri_red"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="monospace"
+                            android:text="Informe seu usuário e senha. O app autentica via SRP e configura o WireGuard sozinho:"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="10sp" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:boxBackgroundColor="@color/terminal_surface"
+                            app:boxStrokeColor="@color/alri_red"
+                            app:hintTextColor="@color/terminal_text_secondary"
+                            android:textColorHint="@color/terminal_text_muted">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etConfigProtonUser"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:hint="Usuário ou Email Proton"
+                                android:textColor="@color/terminal_text_primary"
+                                android:textSize="12sp"
+                                android:inputType="textEmailAddress" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            app:boxBackgroundColor="@color/terminal_surface"
+                            app:boxStrokeColor="@color/alri_red"
+                            app:passwordToggleEnabled="true"
+                            app:passwordToggleTint="@color/terminal_text_muted"
+                            app:hintTextColor="@color/terminal_text_secondary"
+                            android:textColorHint="@color/terminal_text_muted">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/etConfigProtonPass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:hint="Senha da sua conta Proton"
+                                android:textColor="@color/terminal_text_primary"
+                                android:textSize="12sp"
+                                android:inputType="textPassword" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnConfigProtonLogin"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="monospace"
+                            android:text="AUTENTICAR &amp; GERAR PERFIL"
+                            android:textColor="@color/terminal_btn_text"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            app:backgroundTint="@color/alri_red"
+                            app:cornerRadius="8dp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnProtonWeb"
+                            style="@style/Widget.Material3.Button.TextButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="monospace"
+                            android:text="Não tem conta? Entrar / Criar no site (Web)"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="10sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnImportConfig"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="monospace"
+                            android:text="JÁ TENHO ARQUIVO .CONF -> IMPORTAR"
+                            android:textColor="@color/terminal_text_primary"
+                            android:textSize="11sp"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/terminal_card_border" />
+
+                        <!-- Opção Secundária: Perfil Customizado -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:fontFamily="monospace"
+                            android:text="OPÇÃO 2: PERFIL CUSTOMIZADO (.CONF)"
+                            android:textColor="@color/terminal_text_secondary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="monospace"
+                            android:text="Perfis pessoais de VPS própria WireGuard, Cloudflare WARP ou Mullvad:"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="10sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnImportCustom"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="42dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="monospace"
+                            android:text="IMPORTAR PERFIL PERSONALIZADO"
+                            android:textColor="@color/terminal_text_primary"
+                            android:textSize="11sp"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/terminal_card_border" />
+                    </LinearLayout>
+
+                    <!-- Card 2: Gerenciamento de Dados & Limpeza Total -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_terminal_box"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="[ GERENCIAMENTO DE DADOS &amp; LIMPEZA ]"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/terminal_card_border" />
+
+                        <TextView
+                            android:id="@+id/tvDataSummary"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="Armazenamento local: ardc_vpn.conf"
+                            android:textColor="@color/terminal_text_secondary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="monospace"
+                            android:text="Para apagar o perfil salvo, encerrar o túnel e restaurar o aplicativo ao estado original de fábrica:"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="11sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnClearAllData"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="12dp"
+                            android:fontFamily="monospace"
+                            android:text="LIMPAR TODAS AS CONFIGURAÇÕES E DADOS"
+                            android:textColor="@color/alri_red_glow"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/alri_red" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+
+            <!-- ============================================== -->
+            <!-- ABA 3: LOGS & CONSOLE TERMINAL                 -->
+            <!-- ============================================== -->
+            <LinearLayout
+                android:id="@+id/containerLogs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Barra de Ferramentas dos Logs -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnClearLogs"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:fontFamily="monospace"
+                        android:paddingHorizontal="10dp"
+                        android:text="Limpar Logs"
+                        android:textColor="@color/terminal_text_secondary"
+                        android:textSize="11sp"
+                        app:cornerRadius="6dp"
+                        app:strokeColor="@color/terminal_card_border" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="end"
+                        android:text="alri@android:~$ tail -f wg.log"
+                        android:textColor="@color/terminal_text_muted"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <!-- Barra Superior do Console -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="8dp">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnClearLogs"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:fontFamily="monospace"
+                        android:paddingHorizontal="12dp"
+                        android:text="[ LIMPAR CONSOLE ]"
+                        android:textColor="@color/terminal_text_secondary"
+                        android:textSize="10sp"
+                        app:cornerRadius="6dp"
+                        app:strokeColor="@color/terminal_card_border" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="monospace"
+                        android:gravity="end"
+                        android:text="alri@ardcb:~$ tail -f wg.log"
+                        android:textColor="@color/terminal_text_muted"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <!-- Janela do Terminal Estilo Cyberpunk -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_terminal_box"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <!-- Barra de Controle do Terminal -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingBottom="8dp">
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:background="@drawable/ic_launcher_background"
+                            android:backgroundTint="@color/alri_red" />
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginStart="5dp"
+                            android:background="@drawable/ic_launcher_background"
+                            android:backgroundTint="@color/terminal_yellow" />
+
+                        <View
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:layout_marginStart="5dp"
+                            android:background="@drawable/ic_launcher_background"
+                            android:backgroundTint="@color/terminal_green" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:fontFamily="monospace"
+                            android:text="ardcb-core // log-stream"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="10sp" />
+
+                        <!-- Badge LIVE com ponto verde -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_pill_status"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="2dp">
+
+                            <View
+                                android:layout_width="5dp"
+                                android:layout_height="5dp"
+                                android:background="@drawable/ic_launcher_background"
+                                android:backgroundTint="@color/terminal_green" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:fontFamily="monospace"
+                                android:text="LIVE"
+                                android:textColor="@color/terminal_green"
+                                android:textSize="8sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/terminal_card_border" />
+
+                    <ScrollView
+                        android:id="@+id/scrollLogs"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+                        android:fillViewport="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvTerminalOutput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="monospace"
+                                android:lineSpacingExtra="3dp"
+                                android:textColor="@color/terminal_text_primary"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/tvTerminalPrompt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="monospace"
+                                android:text="alri@ardcb:~$ █"
+                                android:textColor="@color/terminal_green"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ============================================== -->
+            <!-- ABA 4: SOBRE & CRÉDITOS                        -->
+            <!-- ============================================== -->
+            <ScrollView
+                android:id="@+id/containerAbout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_terminal_box"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="ARDiscordBypass — ALRI GROUP"
+                            android:textColor="@color/alri_red"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="monospace"
+                            android:text="Versão 3.5.0 (Android Client)"
+                            android:textColor="@color/terminal_text_primary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="Licença: ARGLFU Version 2 (2026)"
+                            android:textColor="@color/terminal_text_muted"
+                            android:textSize="10sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="8dp"
+                            android:background="@color/terminal_card_border" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:text="O ARDiscordBypass é uma solução de alto desempenho desenvolvida para liberar transmissões de tela e câmera no Discord no Brasil com zero impacto em jogos e outros apps."
+                            android:textColor="@color/terminal_text_secondary"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="monospace"
+                            android:text="• Isolamento estrito por processo (Split-Tunneling)\n• Zero tráfego de outros apps direcionado ao túnel\n• Zero aumento de ping em jogos e navegação\n• Compatível com Discord, Canary, PTB, Aliucord e Vencord"
+                            android:textColor="@color/terminal_text_primary"
+                            android:textSize="11sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginVertical="10dp"
+                            android:background="@color/terminal_card_border" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnOpenGitHub"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:fontFamily="monospace"
+                            android:text="[ REPOSITORIO GITHUB ]"
+                            android:textColor="@color/terminal_text_primary"
+                            android:textSize="11sp"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/terminal_card_border" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnShowNotes"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="6dp"
+                            android:fontFamily="monospace"
+                            android:text="[ NOTAS DE FUNCIONAMENTO ]"
+                            android:textColor="@color/terminal_text_primary"
+                            android:textSize="11sp"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/terminal_card_border" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnShowCredits"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="6dp"
+                            android:fontFamily="monospace"
+                            android:text="[ CREDITOS &amp; EQUIPE ]"
+                            android:textColor="@color/terminal_text_primary"
+                            android:textSize="11sp"
+                            app:cornerRadius="8dp"
+                            app:strokeColor="@color/terminal_card_border" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
     </LinearLayout>
 
-    <!-- CINEMATIC INTRO SPLASH OVERLAY -->
+    <!-- CINEMATIC INTRO SPLASH OVERLAY (COM ANIMAÇÃO DE UNLOCK) -->
     <FrameLayout
         android:id="@+id/splashOverlay"
         android:layout_width="match_parent"
@@ -229,30 +979,104 @@
 
             <ImageView
                 android:id="@+id/splashLogo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/alri_logo"
-                android:contentDescription="ALRI GROUP Loading Logo" />
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:contentDescription="ALRI GROUP Splash"
+                android:src="@drawable/alri_logo" />
 
             <TextView
                 android:id="@+id/splashText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="monospace"
-                android:text="ALRI GROUP"
+                android:text="ARDiscordBypass v3.5.0"
                 android:textColor="@color/alri_red"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="monospace"
-                android:text="CARREGANDO AMBIENTE..."
-                android:textColor="@color/terminal_text_muted"
+                android:text="ALRI GROUP // INICIALIZANDO..."
+                android:textColor="@color/terminal_text_secondary"
                 android:textSize="11sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- PROTON AUTH LOADING OVERLAY (CYBERPUNK ALRI RED ANIMATION) -->
+    <FrameLayout
+        android:id="@+id/authLoadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D9000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="24dp"
+            android:background="@drawable/bg_terminal_box"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <ImageView
+                android:id="@+id/ivAuthLoadingLogo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="Loading Logo"
+                android:src="@drawable/alri_logo" />
+
+            <ProgressBar
+                android:id="@+id/pbAuthLoading"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="16dp"
+                android:indeterminateTint="@color/alri_red" />
+
+            <TextView
+                android:id="@+id/tvAuthLoadingTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="monospace"
+                android:text="AUTENTICANDO PROTONVPN"
+                android:textColor="@color/alri_red"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAuthLoadingStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp"
+                android:text="Iniciando handshake seguro via SRP..."
+                android:textColor="@color/terminal_text_secondary"
+                android:textSize="11sp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAuthLoadingDismiss"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="monospace"
+                android:text="[ VOLTAR E CORRIGIR ]"
+                android:textColor="@color/terminal_text_primary"
+                android:textSize="11sp"
+                android:visibility="gone"
+                app:cornerRadius="8dp"
+                app:strokeColor="@color/terminal_card_border" />
         </LinearLayout>
     </FrameLayout>
 

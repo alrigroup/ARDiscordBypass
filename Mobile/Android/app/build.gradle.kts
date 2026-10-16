@@ -12,24 +12,30 @@ android {
         applicationId = "com.alrigroup.ardcb"
         minSdk = 24
         targetSdk = 37
-        versionCode = 300
-        versionName = "3.0.0"
+        versionCode = 350
+        versionName = "3.5.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         debug {
-            isDebuggable = false
+            isDebuggable = true
         }
         release {
             isMinifyEnabled = false
-            isDebuggable = false
+            isDebuggable = true
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 

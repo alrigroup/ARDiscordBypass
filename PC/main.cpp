@@ -8,7 +8,7 @@
 
 #include <regex>
 
-#define APP_VERSION "3.0.0"
+#define APP_VERSION "3.5.0"
 #define GITHUB_REPO "alrigroup/ARDiscordBypass"
 #define GITHUB_API_URL "https://api.github.com/repos/" GITHUB_REPO "/releases/latest"
 
@@ -160,7 +160,7 @@ void printBannerAnimated() {
 
 std::string fetchLatestVersion() {
 #ifdef _WIN32
-  HINTERNET hSession = WinHttpOpen(L"ARDCB/3.0", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY,
+  HINTERNET hSession = WinHttpOpen(L"ARDCB/3.5.0", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY,
                                     WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
   if (!hSession)
     return "";
@@ -246,9 +246,112 @@ bool checkForUpdate() {
   return false;
 }
 
-int main(int argc, char *argv[]) {
+inline int runCliMain(int argc, char *argv[]) {
   UI::initConsole();
+
+  bool stopRequested = false;
+  bool wantLogin = false;
+  bool showHelp = false;
+  std::string customConfigFile = "";
+  std::string manualDiscordArg = "";
+
+  for (int i = 1; i < argc; ++i) {
+    std::string arg = argv[i];
+    if (arg == "-h" || arg == "--help" || arg == "-help") {
+      showHelp = true;
+    } else if (arg == "-stop" || arg == "--stop") {
+      stopRequested = true;
+    } else if (arg == "-l" || arg == "-login" || arg == "--login" || arg == "--proton") {
+      wantLogin = true;
+    } else if (arg == "-cfg" || arg == "--cfg" || arg == "-c" || arg == "--config") {
+      if (i + 1 < argc) {
+        customConfigFile = argv[++i];
+      } else {
+        std::cerr << "Erro: A opção '" << arg << "' requer o caminho para um arquivo .conf\n";
+        return 1;
+      }
+    } else if (arg.rfind("-cfg=", 0) == 0) {
+      customConfigFile = arg.substr(5);
+    } else if (arg.rfind("--cfg=", 0) == 0) {
+      customConfigFile = arg.substr(6);
+    } else if (arg.rfind("--config=", 0) == 0) {
+      customConfigFile = arg.substr(9);
+    } else if (arg == "--cli" || arg == "-cli") {
+      continue;
+    } else if (!arg.empty() && arg[0] != '-') {
+      manualDiscordArg = arg;
+    }
+  }
+
+  if (showHelp) {
+    printBannerAnimated();
+    std::cout << UI::CYAN << UI::BOLD << "Uso:" << UI::RESET << " " << argv[0] << " [OPÇÕES] [CAMINHO_DISCORD]\n\n"
+              << UI::BOLD << "Opções disponíveis:" << UI::RESET << "\n"
+              << "  " << UI::GREEN << "-stop, --stop" << UI::RESET << "\n"
+              << "      Encerra o Discord, destrói o túnel WireGuard e desfaz o bypass por completo.\n\n"
+              << "  " << UI::GREEN << "-cfg,  --cfg <caminho>" << UI::RESET << " (ou --config)\n"
+              << "      Utiliza um arquivo de perfil WireGuard (.conf) customizado em vez do padrão.\n\n"
+              << "  " << UI::GREEN << "-l,    --login" << UI::RESET << " (ou --proton)\n"
+              << "      Força nova autenticação na API do ProtonVPN para gerar outro túnel.\n\n"
+              << "  " << UI::GREEN << "--cli" << UI::RESET << "\n"
+              << "      Força execução no terminal (CLI) mesmo quando compilado com GUI embutida.\n\n"
+              << "  " << UI::GREEN << "-h,    --help" << UI::RESET << "\n"
+              << "      Exibe este menu de ajuda com todas as opções.\n\n"
+              << UI::BOLD << "Exemplos de uso:" << UI::RESET << "\n"
+              << "  " << argv[0] << "                       # Inicia normalmente (ProtonVPN / padrão)\n"
+              << "  " << argv[0] << " -stop                 # Encerra o Discord e remove o túnel\n"
+              << "  " << argv[0] << " -cfg ./minha_vpn.conf  # Conecta usando um perfil WireGuard específico\n"
+              << "  " << argv[0] << " -l                    # Força novo login no ProtonVPN\n\n";
+    return 0;
+  }
+
+  if (stopRequested) {
+    printBannerAnimated();
+#ifndef _WIN32
+    if (geteuid() != 0) {
+      std::string sudoCheck = runCommand("sudo -n true 2>&1");
+      if (!sudoCheck.empty()) {
+        UI::info("Desfazer o isolamento de rede requer privilégios de superusuário (sudo).");
+        int ret = std::system("sudo true");
+        if (ret != 0) {
+          UI::error("Privilégios sudo são necessários para desativar o túnel.");
+          return 1;
+        }
+      }
+    }
+#endif
+    bool stopped = UI::spinner("Desativando bypass e removendo túnel de rede", []() {
+      return stopBypass();
+    });
+
+    std::cout << std::endl;
+    if (stopped) {
+      std::cout << UI::GREEN << UI::BOLD << "=========================================================================" << UI::RESET << std::endl;
+      std::cout << UI::GREEN << UI::BOLD << "  ✔ BYPASS DESATIVADO COM SUCESSO!" << UI::RESET << std::endl;
+      std::cout << UI::WHITE << "  - O túnel WireGuard e o namespace de rede foram removidos." << UI::RESET << std::endl;
+      std::cout << UI::WHITE << "  - Todas as instâncias do Discord foram finalizadas." << UI::RESET << std::endl;
+      std::cout << UI::WHITE << "  - Sua rede voltou ao estado padrão original." << UI::RESET << std::endl;
+      std::cout << UI::GREEN << UI::BOLD << "=========================================================================" << UI::RESET << std::endl;
+      return 0;
+    } else {
+      UI::error("Falha ao desativar completamente o túnel.");
+      return 1;
+    }
+  }
+
+  if (!customConfigFile.empty()) {
+    if (!fs::is_regular_file(customConfigFile)) {
+      printBannerAnimated();
+      UI::error("Arquivo de configuração WireGuard não encontrado: " + customConfigFile);
+      return 1;
+    }
+  }
+
   printBannerAnimated();
+
+  if (!customConfigFile.empty()) {
+    UI::info("Perfil WireGuard customizado ativo: " + customConfigFile);
+  }
 
 #ifndef _WIN32
   if (geteuid() != 0) {
@@ -287,25 +390,19 @@ int main(int argc, char *argv[]) {
   std::wstring discordExe;
   bool foundExe = UI::spinner("Localizando executável do Discord", [&]() {
     discordExe = locateDiscordExe();
-    if (discordExe.empty() && argc > 1) {
-      int wlen = MultiByteToWideChar(CP_UTF8, 0, argv[1], -1, nullptr, 0);
-      if (wlen > 0) {
-        std::wstring arg(wlen, 0);
-        MultiByteToWideChar(CP_UTF8, 0, argv[1], -1, &arg[0], wlen);
-        arg.resize(wlen - 1);
-        discordExe = arg;
-      }
-    }
-
     if (discordExe.empty()) {
-      wchar_t programFiles[MAX_PATH];
-      if (GetEnvironmentVariableW(L"ProgramFiles", programFiles, MAX_PATH) != 0) {
-        std::wstring path = std::wstring(programFiles) + L"\\Discord\\app-*/Discord.exe";
-        WIN32_FIND_DATAW findData;
-        HANDLE hFind = FindFirstFileW(path.c_str(), &findData);
-        if (hFind != INVALID_HANDLE_VALUE) {
-          discordExe = std::wstring(programFiles) + L"\\Discord\\" + findData.cFileName + L"\\Discord.exe";
-          FindClose(hFind);
+      for (int i = 1; i < argc; ++i) {
+        std::string a = argv[i];
+        if (!a.empty() && a[0] != '-') {
+          if (fs::exists(a) && fs::is_regular_file(a)) {
+            int wlen = MultiByteToWideChar(CP_UTF8, 0, a.c_str(), -1, nullptr, 0);
+            if (wlen > 0) {
+              std::wstring warg(wlen - 1, 0);
+              MultiByteToWideChar(CP_UTF8, 0, a.c_str(), -1, &warg[0], wlen);
+              discordExe = warg;
+              break;
+            }
+          }
         }
       }
     }
@@ -319,10 +416,9 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 #else
-  std::string manualArg = (argc > 1) ? argv[1] : "";
   LaunchTarget launchTarget;
   bool foundTarget = UI::spinner("Identificando tipo de empacotamento do Discord", [&]() {
-    launchTarget = locateDiscordLaunchTarget(manualArg);
+    launchTarget = locateDiscordLaunchTarget(manualDiscordArg);
     return !launchTarget.command.empty();
   });
 
@@ -354,9 +450,27 @@ int main(int argc, char *argv[]) {
     });
   }
 
+  std::string activeConfig = customConfigFile.empty() ? "ardc_vpn.conf" : customConfigFile;
+
+  if (customConfigFile.empty()) {
+    if (!fs::is_regular_file("ardc_vpn.conf") || wantLogin) {
 #ifndef _WIN32
-  bool tunnelOk = UI::spinner("Criando túnel WireGuard dedicado (Namespace seguro)", []() {
-    return ensureWireGuardNetns();
+      if (!setupProtonConfig(wantLogin)) {
+        UI::error("Não foi possível configurar o perfil WireGuard.");
+        return 1;
+      }
+#else
+      if (!setupProtonConfigWindows(wantLogin)) {
+        UI::error("Não foi possível configurar o perfil WireGuard.");
+        return 1;
+      }
+#endif
+    }
+  }
+
+#ifndef _WIN32
+  bool tunnelOk = UI::spinner("Criando túnel WireGuard dedicado (Namespace seguro)", [&]() {
+    return ensureWireGuardNetns(activeConfig);
   });
 
   if (!tunnelOk) {
@@ -373,8 +487,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 #else
-  bool tunnelOk = UI::spinner("Configurando túnel WireGuard por processo (WireSock WFP)", []() {
-    return ensureWireGuardWindows();
+  bool tunnelOk = UI::spinner("Configurando túnel WireGuard por processo (WireSock WFP)", [&]() {
+    return ensureWireGuardWindows(activeConfig);
   });
 
   if (!tunnelOk) {
@@ -419,3 +533,9 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
+
+#ifndef ARDCB_GUI_BUILD
+int main(int argc, char *argv[]) {
+  return runCliMain(argc, argv);
+}
+#endif

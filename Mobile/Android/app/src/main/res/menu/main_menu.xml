@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/action_import_config"
+        android:title="Importar Configuração (.conf)"
+        android:icon="@android:drawable/ic_menu_upload" />
+    <item
         android:id="@+id/action_notes"
         android:title="Como Funciona (Notas)"
         android:icon="@android:drawable/ic_menu_info_details" />
