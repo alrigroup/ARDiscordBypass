@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light Mode Colors -->
+    <color name="terminal_bg">#F8FAFC</color>
+    <color name="terminal_surface">#FFFFFF</color>
+    <color name="terminal_card">#F1F5F9</color>
+    <color name="terminal_card_border">#E2E8F0</color>
+
+    <!-- ALRI Brand Red (Puro e marcante, sem tom rosado) -->
+    <color name="alri_red">#E50914</color>
+    <color name="alri_red_dark">#B20710</color>
+    <color name="alri_red_glow">#FF1E27</color>
+    
+    <!-- Status -->
+    <color name="terminal_green">#00E676</color>
+    <color name="terminal_yellow">#FFD600</color>
+    
+    <!-- Text Light -->
+    <color name="terminal_text_primary">#0F172A</color>
+    <color name="terminal_text_secondary">#475569</color>
+    <color name="terminal_text_muted">#94A3B8</color>
+    <color name="terminal_btn_text">#FFFFFF</color>
+
+    <!-- Compatibility -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

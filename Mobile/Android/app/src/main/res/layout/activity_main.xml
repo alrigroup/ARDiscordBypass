@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/terminal_bg"
+    android:fitsSystemWindows="true">
+
+    <!-- MAIN APP CONTENT CONTAINER -->
+    <LinearLayout
+        android:id="@+id/mainContentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header Terminal Banner -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp">
+
+            <ImageView
+                android:id="@+id/headerLogo"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/alri_logo"
+                android:contentDescription="ALRI GROUP Logo" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:text="ALRI GROUP // ARDiscordBypass"
+                android:textColor="@color/alri_red"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_terminal_box"
+                android:fontFamily="monospace"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:text="v3.0.0"
+                android:textColor="@color/terminal_text_secondary"
+                android:textSize="11sp" />
+
+            <ImageButton
+                android:id="@+id/btnMenu"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Menu Opções"
+                android:padding="6dp"
+                android:src="@android:drawable/ic_menu_sort_by_size"
+                app:tint="@color/terminal_text_primary" />
+        </LinearLayout>
+
+        <!-- Terminal Screen / Log Console -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_terminal_box"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Terminal Window Title Bar -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="8dp">
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/ic_launcher_background"
+                    android:backgroundTint="@color/alri_red" />
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/ic_launcher_background"
+                    android:backgroundTint="@color/terminal_yellow" />
+
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/ic_launcher_background"
+                    android:backgroundTint="@color/terminal_green" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:gravity="end"
+                    android:text="session: wg-split-tunnel"
+                    android:textColor="@color/terminal_text_muted"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/terminal_card_border" />
+
+            <!-- Console Log Scroll (Vertical com Quebra de Linha Perfeita) -->
+            <ScrollView
+                android:id="@+id/scrollLogs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:fillViewport="true">
+
+                <TextView
+                    android:id="@+id/tvTerminalOutput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:lineSpacingExtra="3dp"
+                    android:textColor="@color/terminal_text_primary"
+                    android:textSize="12sp" />
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- Status Card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_terminal_box"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <View
+                android:id="@+id/viewStatusDot"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/ic_launcher_background"
+                android:backgroundTint="@color/alri_red" />
+
+            <TextView
+                android:id="@+id/tvStatusText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
+                android:text="BYPASS DESCONECTADO"
+                android:textColor="@color/terminal_text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTargetStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="monospace"
+                android:text="ISOLAMENTO: DISCORD"
+                android:textColor="@color/alri_red"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical">
+
+            <!-- Button Start / Stop -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnToggleVpn"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:fontFamily="monospace"
+                android:text="[ INICIAR BYPASS NO DISCORD ]"
+                android:textColor="@color/terminal_btn_text"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/alri_red"
+                app:cornerRadius="12dp" />
+
+            <!-- Button Launch Discord Explicitly -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOpenDiscord"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="monospace"
+                android:text="> ABRIR DISCORD DIRETAMENTE"
+                android:textColor="@color/terminal_text_primary"
+                android:textSize="12sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="@color/terminal_card_border" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- CINEMATIC INTRO SPLASH OVERLAY -->
+    <FrameLayout
+        android:id="@+id/splashOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/terminal_bg"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/splashLogo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/alri_logo"
+                android:contentDescription="ALRI GROUP Loading Logo" />
+
+            <TextView
+                android:id="@+id/splashText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:fontFamily="monospace"
+                android:text="ALRI GROUP"
+                android:textColor="@color/alri_red"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="monospace"
+                android:text="CARREGANDO AMBIENTE..."
+                android:textColor="@color/terminal_text_muted"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

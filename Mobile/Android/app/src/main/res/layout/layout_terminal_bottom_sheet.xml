@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_terminal_box"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <!-- Modal Drag Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/terminal_card_border" />
+
+    <!-- Modal Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/alri_logo"
+            android:contentDescription="ALRI Logo" />
+
+        <TextView
+            android:id="@+id/tvSheetTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:fontFamily="monospace"
+            android:text="NOTAS DE FUNCIONAMENTO"
+            android:textColor="@color/alri_red"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnCloseSheet"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            app:tint="@color/terminal_text_muted" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="14dp"
+        android:background="@color/terminal_card_border" />
+
+    <!-- Content Scroll -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="420dp">
+
+        <TextView
+            android:id="@+id/tvSheetContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:lineSpacingExtra="5dp"
+            android:textColor="@color/terminal_text_primary"
+            android:textSize="12sp" />
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Action Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSheetAction"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="monospace"
+        android:text="[ ENTENDIDO ]"
+        android:textColor="@color/terminal_btn_text"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:backgroundTint="@color/alri_red"
+        app:cornerRadius="10dp" />
+
+</LinearLayout>
