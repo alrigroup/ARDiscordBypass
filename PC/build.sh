@@ -7,7 +7,7 @@ BUILD_DIR="$SCRIPT_DIR/build"
 BUILD_TYPE="${1:-Release}"
 
 echo "========================================="
-echo "  ARDiscordBypass v2.0 - Build Linux"
+echo "  ARDiscordBypass v3.0 - Build Linux"
 echo "========================================="
 echo ""
 

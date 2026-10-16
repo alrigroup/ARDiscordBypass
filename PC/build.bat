@@ -1,10 +1,10 @@
 @echo off
 
-title Compilando ARDiscordBypass v2.0
+title Compilando ARDiscordBypass v3.0
 
 echo.
 echo =========================================================
-echo       Compilando ARDiscordBypass v2.0 (C++)
+echo       Compilando ARDiscordBypass v3.0 (C++)
 echo =========================================================
 echo.
 
@@ -19,7 +19,7 @@ if %errorlevel% neq 0 (
 )
 
 echo Compilando com linkagem estatica...
-g++ -O2 -std=c++20 -static main.cpp -lws2_32 -lwinhttp -lshell32 -o ARDiscordBypass.exe
+g++ -O2 -std=c++20 -static -static-libgcc -static-libstdc++ main.cpp -lws2_32 -lwinhttp -lshell32 -lole32 -o ARDiscordBypass.exe
 
 if %errorlevel% neq 0 (
     echo.

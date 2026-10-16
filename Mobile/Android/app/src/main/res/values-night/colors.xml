@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark Mode Colors (100% OLED Pure Black) -->
+    <color name="terminal_bg">#000000</color>
+    <color name="terminal_surface">#0A0A0A</color>
+    <color name="terminal_card">#121212</color>
+    <color name="terminal_card_border">#242424</color>
+
+    <!-- ALRI Brand Red (Puro e marcante, sem tom rosado) -->
+    <color name="alri_red">#E50914</color>
+    <color name="alri_red_dark">#B20710</color>
+    <color name="alri_red_glow">#FF1E27</color>
+    
+    <!-- Status -->
+    <color name="terminal_green">#00E676</color>
+    <color name="terminal_yellow">#FFD600</color>
+    
+    <!-- Text Dark -->
+    <color name="terminal_text_primary">#F8FAFC</color>
+    <color name="terminal_text_secondary">#94A3B8</color>
+    <color name="terminal_text_muted">#64748B</color>
+    <color name="terminal_btn_text">#FFFFFF</color>
+
+    <!-- Compatibility -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>

@@ -1,219 +1,133 @@
-# 🚀 ARDiscordBypass v2.0
+<p align="center">
+  <img src="logo.png" alt="ARDiscordBypass Logo" width="180" />
+</p>
+
+# 🚀 ARDiscordBypass v3.0
 
 <p align="center">
-  <b>Solução nativa, ultraleve e segura para liberação de Transmissão de Tela (Live / Screen Share) no Discord.</b>
+  <b>Solução nativa, isolada por processo e segura para liberação de Transmissão de Tela (Live) e Câmera no Discord no Brasil.</b>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Language-C%2B%2B20-blue.svg" alt="C++20">
-  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-0078D6.svg" alt="Windows Linux">
-  <img src="https://img.shields.io/badge/Version-2.0.0-brightgreen.svg" alt="Version 2.0">
-  <img src="https://img.shields.io/badge/Status-Correção%20em%20Breve-yellow.svg" alt="Status">
-  <img src="https://img.shields.io/badge/Size-~300KB-brightgreen.svg" alt="Size ~300KB">
-  <img src="https://img.shields.io/badge/RAM-~2MB-success.svg" alt="RAM ~2MB">
+  <img src="https://img.shields.io/badge/Language-C%2B%2B20%20%7C%20Kotlin-blue.svg" alt="C++20 Kotlin">
+  <img src="https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20Android-E50914.svg" alt="Windows Linux Android">
+  <img src="https://img.shields.io/badge/Version-3.0.0-brightgreen.svg" alt="Version 3.0.0">
+  <img src="https://img.shields.io/badge/Tunnel-WireGuard%20Isolated-success.svg" alt="WireGuard Isolated">
   <img src="https://img.shields.io/badge/TOS-100%25%20Safe-orange.svg" alt="100% TOS Safe">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-ARGLFU%20v2-red.svg" alt="License ARGLFU v2"></a>
 </p>
 
 ---
 
-> [!WARNING]
-> ### ⚠️ Status Atual: Correção Temporária do Discord
-> Recentemente o Discord implementou uma atualização que neutralizou temporariamente este método de bypass.
-> **Estamos cientes e já trabalhando nisso:** uma nova versão corrigida será lançada em breve! Acompanhe as atualizações na aba de [Releases](https://github.com/alrigroup/ARDiscordBypass/releases).
+## ⚡ Novidades da Versão 3.0.0
+
+A **versão 3.0** foi completamente reescrita em **C++20 nativo** e **Kotlin**, substituindo o antigo sistema SOCKS5 por um túnel **WireGuard de alta performance isolado por processo (Per-App / Per-Process Split-Tunneling)**:
+
+- 🔒 **Isolamento de Processo**: Apenas o Discord passa pelo túnel. Seus navegadores, jogos, downloads e o restante do sistema mantêm sua conexão de internet original com **0ms de impacto no ping**.
+- 🐧 **Linux Network Namespaces (`netns`)**: Criação de namespace isolado (`ar-discord-vpn`) no kernel Linux, sem necessidade de alterar a rota padrão global da sua máquina.
+- 🪟 **Windows Filtering Platform (WFP)**: Integração nativa de baixo nível via driver WFP com desanexação de console e zero vazamento de logs.
+- 📱 **Aplicativo Android Nativo**: Split-tunneling por identificador de pacote (`com.discord`), interface inspirada em terminal retro-moderno com fundo 100% OLED Black, Quick Settings Tile nas notificações e Bottom Sheet de notas.
+- 🎨 **CLI Responsivo com Animações**: Detecção dinâmica do tamanho do console, construção progressiva da logo ALRI em ASCII e Braille spinners assíncronos.
 
 ---
 
-## 📦 Download Pronto para Uso
+## 📦 Downloads & Verificação de Integridade (Hashes & VirusTotal)
 
-Não quer compilar? O executável já está pronto e compilado para uso imediato!
+Para total transparência e segurança de todos os usuários, disponibilizamos os relatórios públicos do **VirusTotal** e as hashes **SHA-256** oficiais de cada binário compilado. Você pode conferir a integridade do seu arquivo executando `sha256sum <arquivo>` no Linux ou `CertUtil -hashfile <arquivo> SHA256` no Windows:
 
-👉 **[Baixe a versão mais recente na aba Releases](https://github.com/alrigroup/ARDiscordBypass/releases)**
+| Plataforma | Arquivo | Status VirusTotal | Hash SHA-256 Oficial |
+| :--- | :--- | :---: | :--- |
+| **Android** | `ARDiscordBypass.apk` | [**0/65 Detections (100% Limpo)**](https://www.virustotal.com/gui/file/0b92c34efe6baded27665500fea7320a2a7fe8e0c6cf9bdd3d02f3281b0efc40?nocache=1) | `0b92c34efe6baded27665500fea7320a2a7fe8e0c6cf9bdd3d02f3281b0efc40` |
+| **Linux (x86_64)** | `ARDiscordBypass_linux` | [**0/63 Detections (100% Limpo)**](https://www.virustotal.com/gui/file/8a788e6a0c39b555b142eb17a4c133b63efba60d1985054c29dbb1309d8b8024?nocache=1) | `8a788e6a0c39b555b142eb17a4c133b63efba60d1985054c29dbb1309d8b8024` |
+| **Windows (x64)** | `ARDiscordBypass.exe` | [**5/71 Detections (Falso Positivo)**](https://www.virustotal.com/gui/file/75a5f1f041f1e40ff057d8e26c65d2dc7b02420e91a7633bcc8304aab5197e09?nocache=1) | `75a5f1f041f1e40ff057d8e26c65d2dc7b02420e91a7633bcc8304aab5197e09` |
 
----
-
-## ⚠️ Compatibilidade (v2.0)
-
-| Sistema Operacional | Método de Instalação do Discord | Status |
-| :--- | :---: | :---: |
-| **Windows 11** | Instalador oficial (.exe) | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
-| **Windows 10** | Instalador oficial (.exe) | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
-| **Linux** | Flatpak | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
-| **Linux** | Snap / Nativo (.deb, .tar.gz, AUR, etc.) | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
-| **Linux** | Qualquer outro método | ⚠️ Afetado por atualização do Discord *(Correção em breve)* |
-
-> **Não encontrou seu sistema na lista?** O programa foi feito para funcionar em qualquer distro Linux e qualquer método de instalação do Discord. Se encontrar algum problema, por favor [abra uma Issue](https://github.com/alrigroup/ARDiscordBypass/issues)!
-
----
-
-## 📌 Por que usar o ARDiscordBypass?
-
-Muitos usuários enfrentam problemas de restrição ou falhas ao tentar transmitir a tela no Discord no Brasil. As soluções alternativas trazem sérios riscos e perda de desempenho:
-
-1. **VPNs Tradicionais**: Redirecionam **todo o tráfego do seu computador**, causando **lag severo, perda de pacotes e alto ping em jogos**, além de consumirem memória e CPU que causam **queda (drop) de FPS nos jogos**.
-2. **Clients Modificados (Vencord, BetterDiscord, Replugged, etc.)**: Injetam código ou alteram arquivos internos do Discord. Além de adicionarem processos extras que **pesam no desempenho**, isso **viola diretamente os Termos de Serviço (TOS) do Discord**, podendo resultar no **banimento permanente da conta**.
-3. **Sites de Terceiros de Compartilhamento de Tela**: Simulam a experiência em páginas web pesadas no navegador (consumindo muita RAM/CPU e afetando o FPS do jogo). **Grave risco de privacidade**: os proprietários ou servidores desses sites podem espionar ou visualizar a sua tela e áudio sem o seu consentimento.
-
----
-
-## ⚡ A Solução Definitiva
-
-O **ARDiscordBypass** resolve esse problema de maneira simples, segura e extremamente otimizada:
-
-* **🎮 Sem Queda de FPS em Jogos**: O executável é **ultraleve** (~300 KB) e **se encerra automaticamente** logo após iniciar o Discord. Ele não fica rodando em segundo plano, liberando 100% da sua CPU e RAM para o seu jogo.
-* **🔒 Privacidade & Transmissão Nativa no Discord**: Sua transmissão continua acontecendo 100% dentro do aplicativo oficial do Discord, com a segurança original do app e sem intermediários visualizando sua tela.
-* **🎯 Redirecionamento Focado**: Redireciona **apenas** a verificação de localização inicial do aplicativo Discord para fora do Brasil durante a abertura do programa.
-* **⚡ Zero Lag de Conexão**: Todo o tráfego do sistema (seus jogos, navegadores, downloads) continua 100% na sua conexão normal de internet.
-* **📹 Mídia e Áudio Diretos**: As conexões de voz, vídeo e transmissão (`cdn.discordapp.com`, `*.discord.media`, etc.) utilizam a lista de exceção (`proxy-bypass`), garantindo transmissão em alta velocidade sem intermediários.
-* **🛡️ 100% Seguro & Antiban**: **Zero modificação em arquivos do Discord, zero alteração de memória e zero injeção de código**. O bypass utiliza apenas flags nativas suportadas pelo próprio ecossistema Chromium/Electron (`--proxy-server` e `--proxy-bypass-list`).
-* **🌐 Proxy Automático (v2.0)**: Busca automaticamente um proxy SOCKS5 funcional na internet e testa antes de usar. Não precisa configurar nada manualmente!
-* **🔄 Verificação de Atualizações (v2.0)**: Verifica automaticamente se há uma versão mais recente disponível no GitHub.
+> ℹ️ **Por que o binário do Windows aponta 5 detecções heurísticas (Falso Positivo)?**
+> 
+> O código do **ARDiscordBypass é 100% aberto e auditável**. Esse comportamento no Windows é um **falso positivo clássico de antivírus de segunda linha** pelos seguintes motivos técnicos:
+> 1. **Linkagem Estática do MinGW (`-static`)**: Para que você não precise instalar DLLs ou o Microsoft Visual C++ Redistributable, o binário embute as bibliotecas C++ padrão diretamente dentro do `.exe`, o que alguns motores heurísticos marcam preventivamente.
+> 2. **Manipulação de Processos e Rede (Win32 API)**: O executável utiliza APIs do sistema operacional (`CreateProcessW` com `DETACHED_PROCESS` e manipulação de handles de rede) para gerenciar o túnel de split-tunneling e lançar o Discord em background sem vazar logs no console. Antivírus genéricos costumam alertar sobre programas novos/sem assinatura digital que iniciam outros softwares.
+> 3. **Ausência de Certificado Comercial Pago**: O executável é de código aberto e não possui um certificado Code Signing comercial (que custa centenas de dólares anuais). Os principais antivírus do mercado (Microsoft Defender, Kaspersky, Bitdefender, ESET, Sophos, Avast) reconhecem o binário como **100% seguro e não malicioso**.
+> 4. **Compilação Independente**: Se desejar, você mesmo pode inspecionar o código em `PC/main.cpp` e compilá-lo com seu próprio compilador executando `build.bat`!
 
 ---
 
 ## 📊 Comparativo: ARDiscordBypass vs Outras Soluções
 
-| Recurso / Característica | VPN Global | Client Modificado (Vencord/BetterDiscord) | Sites de Terceiros (Web) | 🚀 **ARDiscordBypass** |
+| Recurso / Característica | VPN Global | Client Modificado (Vencord/BetterDiscord) | Sites de Terceiros (Web) | 🚀 **ARDiscordBypass v3.0** |
 | :--- | :---: | :---: | :---: | :---: |
-| **Impacto no FPS dos Jogos** | 🔴 Alto Drop de FPS | ⚠️ Pode causar drop | 🔴 Alto (Uso de RAM do Browser) | 🟢 **ZERO (Programa se encerra após abrir)** |
-| **Transmissão Nativa no App do Discord** | ✅ Sim | ✅ Sim | ❌ Não (Via Navegador) | ✅ **Sim** |
-| **Privacidade da Sua Tela Garantida** | ✅ Sim | ✅ Sim | 🔴 **NÃO (Risco de espionagem)** | ✅ **Sim (100% Discord Oficial)** |
-| **Ping Normal em Jogos** | ❌ Não (Lag) | ✅ Sim | ✅ Sim | ✅ **Sim (0% de impacto)** |
-| **Risco de Banimento no Discord** | 🟢 Baixo | 🔴 **ALTO (Viola TOS)** | 🟢 Nulo | 🟢 **ZERO (Parâmetros nativos)** |
-| **Sem Injeção de Código DLL/JS** | ✅ Sim | ❌ Não | ✅ Sim | ✅ **Sim (Flags Chromium)** |
-| **Uso de Memória RAM** | ⚠️ Alto (100MB+) | ⚠️ Médio | ⚠️ Alto (Navegador) | ⚡ **Irrelevante (< 2MB ao iniciar)** |
-| **Suporte a Linux** | ✅ Sim | ⚠️ Limitado | ✅ Sim | ✅ **Sim (Flatpak, Snap, Nativo)** |
+| **Impacto no FPS dos Jogos** | 🔴 Alto Drop de FPS | ⚠️ Pode causar drop | 🔴 Alto (Uso de RAM do Browser) | 🟢 **ZERO (Isolado no Discord)** |
+| **Transmissão Nativa no App** | ✅ Sim | ✅ Sim | ❌ Não (Via Navegador) | ✅ **Sim (100% Oficial)** |
+| **Privacidade da Sua Tela** | ✅ Sim | ✅ Sim | 🔴 NÃO (Risco de monitoramento) | 🟢 **100% Protegido (P2P)** |
+| **Segurança da Conta (TOS)** | ✅ Seguro | 🔴 **Risco de Ban permanente** | ⚠️ Questionável | 🟢 **100% Seguro & Antiban** |
+| **Latência (Ping) nos Jogos** | 🔴 Ping Alto (+100ms) | 🟢 Ping Normal | 🟢 Ping Normal | 🟢 **Ping Nativo (Intocado)** |
+| **Configuração Manual** | 🔴 Exige contas e apps pesados | ⚠️ Exige patch em arquivos | ⚠️ Exige login em sites | 🟢 **Zero Configuração (1 Clique)** |
 
 ---
 
-## ⚙️ Como Funciona Internamente
+## 📂 Organização do Repositório
 
-### Windows
-1. **Detecção Automática**: Identifica a pasta de instalação do Discord (`%LOCALAPPDATA%`, `Program Files`).
-2. **Fechamento Seguro**: Caso o Discord já esteja aberto, encerra as instâncias ativas para aplicar a nova configuração.
-3. **Busca de Proxy**: Consulta a API do ProxyScrape para encontrar um proxy SOCKS5 funcional.
-4. **Inicialização com Flags Nativas**: Inicializa o processo do Discord com `--proxy-server` e `--proxy-bypass-list`.
-5. **Encerramento Rápido**: O programa se encerra imediatamente após iniciar o Discord.
-
-### Linux
-1. **Detecção Automática**: Busca o Discord em Flatpak, Snap, XDG, `/opt`, `/usr/bin` e via `which`.
-2. **Fechamento Seguro**: Encerra instâncias ativas via `pkill`.
-3. **Busca de Proxy**: Consulta a API do ProxyScrape para encontrar um proxy SOCKS5 funcional.
-4. **Inicialização com Flags Nativas**:
-   - **Flatpak/Snap**: Cria o arquivo `discord-flags.conf` que o Electron lê automaticamente.
-   - **Nativo**: Passa `--proxy-server` e `--proxy-bypass-list` diretamente no executável.
-5. **Limpeza**: Remove o arquivo `discord-flags.conf` após o Discord iniciar.
-
----
-
-## 📖 Como Usar (Sem precisar compilar)
-
-### Windows
-1. Vá até a aba **[Releases](https://github.com/alrigroup/ARDiscordBypass/releases)** e baixe o `ARDiscordBypass.exe`.
-2. **Execute** o `ARDiscordBypass.exe`.
-3. O programa detecta o Discord, fecha instâncias abertas, busca um proxy funcional e inicia o bypass.
-4. **Aproveite!** Sua transmissão de tela estará liberada.
-
-### Linux
-1. Vá até a aba **[Releases](https://github.com/alrigroup/ARDiscordBypass/releases)** e baixe o `ARDiscordBypass_linux`.
-2. Torne executável: `chmod +x ARDiscordBypass_linux`
-3. **Execute**: `./ARDiscordBypass_linux`
-4. O programa detecta automaticamente o tipo de instalação (Flatpak, Snap ou nativo) e aplica o bypass.
-
-> **Dica**: No Linux, você pode passar o caminho do Discord manualmente: `./ARDiscordBypass_linux /caminho/para/Discord`
-
----
-
-## ❓ Solução de Problemas
-
-### Discord fica em "loading infinito" (tela de loading por mais de 1 minuto)
-Isso acontece quando o proxy selecionado não está respondendo corretamente. A solução é simples:
-1. **Feche o Discord** (pelo gerenciador de tarefas se necessário).
-2. **Execute o ARDiscordBypass novamente.** O programa buscará um **novo proxy funcional** e o problema será resolvido.
-
-> **Nota**: O programa pode demorar alguns segundos a mais para iniciar — isso é normal, pois a busca por proxies livres depende da disponibilidade de servidores no momento. Se nenhum proxy for encontrado, o Discord abre sem bypass (sem proxy). Tente novamente mais tarde caso o loading infinito persista.
-
----
-
-## 🛠️ Como Compilar (Opcional)
-
-Se você preferir compilar o código-fonte por conta própria, o projeto é escrito em C++20 nativo para Windows e Linux, sem dependências externas de terceiros.
-
-### Requisitos:
-- Compilador C++20 (GCC/MinGW, MSVC ou Clang)
-- CMake 3.16 ou superior
-
-### Estrutura do Projeto
 ```
 ARDiscordBypass/
-├── main.cpp              ← Lógica principal (versão, update, fluxo)
-├── os/
-│   ├── linux/
-│   │   └── platform.h    ← Tudo específico do Linux
-│   └── windows/
-│       └── platform.h    ← Tudo específico do Windows
-├── CMakeLists.txt
-├── build.sh              ← Script de build para Linux
-└── build.bat             ← Script de build para Windows
+├── PC/
+│   ├── main.cpp              ← Ponto de entrada C++20 (responsividade e animações)
+│   ├── ui.h                  ← Engine de UI terminal, Braille dots e TrueColor
+│   ├── CMakeLists.txt        ← CMake do módulo Desktop
+│   ├── build.sh              ← Script de automação Linux
+│   ├── build.bat             ← Script de automação Windows
+│   └── os/
+│       ├── linux/platform.h  ← Namespace WireGuard isolado (`ar-discord-vpn`)
+│       └── windows/platform.h← WireSock WFP e controle de processos Win32
+│
+├── Mobile/
+│   ├── Android/              ← App Android nativo (Kotlin, VpnService, WireGuard GoBackend)
+│   └── (iOS)/                ← Planejado (NetworkExtension)
+│
+├── DOCS.md                   ← Documentação técnica e arquitetura de rede
+├── README.md                 ← Guia geral do projeto
+├── ARDiscordBypass_linux     ← Binário compilado Linux
+├── ARDiscordBypass.exe       ← Binário compilado Windows
+└── ARDiscordBypass.apk       ← Aplicativo Android compilado
 ```
 
-### Linux
-```bash
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build --parallel
-./build/ARDiscordBypass_cpp
-```
+---
 
-Ou use o script automatizado:
+## 🛠️ Como Compilar
+
+Para informações detalhadas sobre arquitetura, protocolos e compilação manual passo a passo em todas as plataformas, consulte o [**DOCS.md**](DOCS.md).
+
+### Linux (Nativo)
 ```bash
+cd PC
 chmod +x build.sh
 ./build.sh
 ```
 
-### Windows
-Basta dar dois cliques no `build.bat` ou executá-lo pelo Terminal/CMD.
-
-Ou compile manualmente:
+### Windows (MinGW / CMD)
+Execute `build.bat` dentro da pasta `PC/` ou utilize o GCC para linkagem estática:
 ```cmd
-g++ -O2 -std=c++20 -static main.cpp -lws2_32 -lwinhttp -lshell32 -o ARDiscordBypass.exe
+g++ -O2 -std=c++20 -static main.cpp -lws2_32 -lwinhttp -lshell32 -lole32 -o ARDiscordBypass.exe
 ```
 
-> **Nota**: O flag `-static` embute todas as DLLs no executável, tornando-o independente. Funciona em qualquer Windows sem instalar nada.
-
-> **Desenvolvedor?** Quer entender o funcionamento avançado do programa, a arquitetura completa, como o proxy automático funciona ou como contribuir com melhorias? Veja o [**DEVELOPER.md**](DEVELOPER.md)!
-
----
-
-## 🗺️ Roadmap & Planos Futuros
-
-- [x] 🟢 **Windows 10/11** (Suporte nativo Win32/C++)
-- [x] 🟢 **Linux** (Suporte Flatpak, Snap e Nativo)
-- [ ] 🟡 **Nova versão com correção para atualização do Discord** *(Em andamento)*
-- [ ] 🟡 **Android** *(Em breve - em desenvolvimento)*
-- [ ] 🔵 **macOS** *(Planos futuros)*
-- [ ] 🔵 **iOS** *(Planos futuros)*
+### Android (Gradle)
+```bash
+cd Mobile/Android
+./gradlew assembleDebug
+```
 
 ---
 
-## 🐛 Encontrou um Bug?
+## 🛡️ Segurança & Antiban
 
-Se você encontrou algum problema, por favor **[abra uma Issue](https://github.com/alrigroup/ARDiscordBypass/issues)** detalhando:
-- Seu sistema operacional
-- Método de instalação do Discord (Flatpak, Snap, nativo, etc.)
-- Mensagem de erro (se houver)
-- Passos para reproduzir o problema
+O **ARDiscordBypass** opera em conformidade estrita com a segurança do usuário:
+- **Zero Injeção**: Não há injeção de código, DLL hijacking ou hooking em memória.
+- **Zero Modificação**: Nenhum arquivo do Discord (`app.asar`, recursos ou instalador) é modificado.
+- O bypass atua exclusivamente na camada de transporte de rede, criando uma rota dedicada para os pacotes de mídia do Discord através de criptografia padrão da indústria (ChaCha20-Poly1305).
 
 ---
 
 ## 🤝 Contribuições
 
-**Contribuições são 100% bem-vindas!** Se você quer melhorar o projeto, sinta-se à vontade para:
-
-1. Fork do repositório
-2. Criar uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Push para a branch (`git push origin feature/nova-feature`)
-5. Abrir um Pull Request
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma [Issue](https://github.com/alrigroup/ARDiscordBypass/issues) ou enviar um [Pull Request](https://github.com/alrigroup/ARDiscordBypass/pulls).
 
 ---
 
@@ -222,24 +136,13 @@ Se você encontrou algum problema, por favor **[abra uma Issue](https://github.c
 Este projeto é protegido sob os termos da licença **ARGLFU (ALRI GROUP LICENSE FREE USE) Version 2 – 2026**.
 
 - 🟢 **Uso e Distribuição**: Gratuito para uso pessoal e não comercial em sua forma original.
-- 🔴 **Proibição de Modificação**: Não é permitida a alteração, modificação ou criação de obras derivadas do código sem autorização expressa do ALRI Group.
-- 🔴 **Restrição Comercial**: Proibida qualquer venda, aluguel ou monetização deste software.
+- 🔴 **Proibição de Modificação / Comercialização**: Vedada a venda, alteração sem autorização ou exploração comercial deste código.
 
-Para mais detalhes, consulte o arquivo [LICENSE](LICENSE) ou acesse os links oficiais:
-- 🔗 **Repositório de Licenças**: [https://github.com/alrigroup/licenses](https://github.com/alrigroup/licenses)
-- 📄 **Texto da Licença (RAW)**: [LICENSE-ARGLFU](https://raw.githubusercontent.com/alrigroup/licenses/refs/heads/main/LICENSE-ARGLFU)
+Consulte o arquivo [LICENSE](LICENSE) para maiores informações.
 
----
-
-## 👤 Créditos
-
-- **Desenvolvimento & Autor**: Alexsanderalri.
-- **Copyright**: Copyright © 2020-2026 **ALRI Group**. Todos os direitos reservados.
-- **Linguagem**: C++20 / Win32 API / POSIX.
-- **Contribuidores**: [Veja todos os contribuidores](https://github.com/alrigroup/ARDiscordBypass/graphs/contributors)
-
----
+<br />
 
 <p align="center">
-  <sub><i>Aviso: Este projeto não é afiliado nem endossado pelo Discord Inc. Trata-se de uma ferramenta utilitária que faz uso de parâmetros nativos do executável Chromium.</i></sub>
+  <b>ALRI GROUP</b> — <i>Technology & Software Architecture</i><br>
+  Copyright © 2020-2026 ALRI Group. Todos os direitos reservados.
 </p>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_notes"
+        android:title="Como Funciona (Notas)"
+        android:icon="@android:drawable/ic_menu_info_details" />
+    <item
+        android:id="@+id/action_credits"
+        android:title="Créditos e Autor"
+        android:icon="@android:drawable/ic_menu_myplaces" />
+    <item
+        android:id="@+id/action_github"
+        android:title="Repositório GitHub"
+        android:icon="@android:drawable/ic_menu_view" />
+</menu>
