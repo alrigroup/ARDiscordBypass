@@ -404,7 +404,7 @@ O sistema não utiliza chaves globais ou credenciais embutidas no código para m
 
 ### 6.1 Build Linux nativo com CMake & Objcopy
 
-Requisitos: GCC 11+ ou Clang 13+ com suporte a C++20, CMake 3.16+, binutils (`objcopy`), e opcionalmente `glfw3` e `opengl` caso compile a interface gráfica.
+Requisitos: GCC 11+ ou Clang 13+ com suporte a C++20, CMake 3.16+, binutils (`objcopy`), e opcionalmente `libglfw3` (`libglfw3-dev` no Ubuntu/Debian, `glfw` no Arch) e OpenGL caso compile a interface gráfica.
 
 O script `build.sh` e o `CMakeLists.txt` cuidam automaticamente de converter o binário `bin/proton-confgen` em objeto ELF embutido (`proton_confgen_embed.o`) e linká-lo diretamente aos executáveis finais:
 
